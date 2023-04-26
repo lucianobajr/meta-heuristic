@@ -1,7 +1,7 @@
 MAIN = src/main.py
 
+	python3 -B $(MAIN) -o ./data/c.csv
 all:
-	python3 -B $(MAIN)
 
 windows:
 	python main.py -o

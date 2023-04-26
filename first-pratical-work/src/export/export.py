@@ -3,18 +3,19 @@ from prettytable import PrettyTable
 from metrics.metrics import Metrics
 
 class Export:
-    def __init__(self,metrics:Metrics,title_boxplot:str,label_boxplot:str,file_name:str)->None:
+    def __init__(self,metrics:Metrics,algorithm:str,title_boxplot:str,label_boxplot:str,file_name:str)->None:
         self.metrics = metrics
         self.title_boxplot = title_boxplot
         self.label_boxplot = label_boxplot
         self.file_name = file_name
+        self.algorithm = algorithm
 
     def gerenate(self):
         # Criar a tabela
         table = PrettyTable()
-        table.field_names = ["Mean", "Min", "Max","STD"]
+        table.field_names = ["Algoritmo","Mínimo", "Máximo", "Média","Desvio-padrão"]
         # Adicionar dados à tabela
-        table.add_row([self.metrics.mean(),self.metrics.min(),self.metrics.max(),self.metrics.standard_deviation()])
+        table.add_row([self.algorithm,self.metrics.min(),self.metrics.max(),self.metrics.mean(),self.metrics.standard_deviation()])
 
         # Imprimir a tabela
         print(table)

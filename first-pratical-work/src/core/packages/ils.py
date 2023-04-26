@@ -4,13 +4,19 @@ from typing import Tuple
 import numpy as np
 
 class ILS:
-    def __init__(self, step_size: float, max_iterations: int, max_restarts: int, type: str):
+    def __init__(self, step_size: float, max_iterations: int, max_restarts: int, x_low, x_high, y_low, y_high,type: str):
         self.step_size = step_size
         self.max_iterations = max_iterations
         self.max_restarts = max_restarts
+        self.x_low = x_low
+        self.x_high = x_high
+        self.y_low = y_low
+        self.y_high = y_high
         self.evalute = Evaluate(type)
 
-    def ils(self, start_point: Tuple[float, float]) -> Tuple[float, float]:
+    def ils(self) -> Tuple[float, float]:
+        start_point = (np.random.uniform(self.x_low, self.x_high), np.random.uniform(self.y_low, self.y_high))
+        
         best_solution = start_point
         best_value = self.evalute.math_evaluate(start_point[0],start_point[1])
         current_solution = start_point
