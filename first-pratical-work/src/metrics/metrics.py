@@ -1,4 +1,6 @@
 import math
+import matplotlib.pyplot as plt
+from prettytable import PrettyTable
 
 class Metrics:
     def __init__(self) -> None:
