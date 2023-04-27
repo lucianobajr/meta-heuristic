@@ -1,6 +1,5 @@
 import math
-from typing import Union
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 class IEvaluate:
     @abstractmethod
