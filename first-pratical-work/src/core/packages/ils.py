@@ -14,7 +14,7 @@ class ILS:
         self.y_high = y_high
         self.evalute = Evaluate(type)
 
-    def ils(self) -> Tuple[float, float]:
+    def heuristic(self) -> Tuple[float, float]:
         start_point = (np.random.uniform(self.x_low, self.x_high), np.random.uniform(self.y_low, self.y_high))
         
         best_solution = start_point

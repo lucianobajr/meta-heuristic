@@ -51,7 +51,7 @@ class Base:
         for i    in range(30):
             result = hill_climbing.heuristic()    
             metrics_hc.insert_result(result)
-            problem, value = ils.ils()
+            problem, value = ils.heuristic()
             metrics_ils.insert_result(value)
 
         export_hill_climbing.gerenate()
