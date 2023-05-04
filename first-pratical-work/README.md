@@ -4,4 +4,16 @@ Nesta implementação, a função f(x, y) implementa a função objetivo a ser m
 
 O algoritmo começa a partir do ponto especificado por start_x e start_y. Ele então busca os quatro vizinhos do ponto atual, cada um deles a uma distância step_size do ponto atual. O algoritmo calcula o valor da função objetivo para cada um dos vizinhos e seleciona o vizinho com o menor valor da função. Se o valor da função no vizinho selecionado for menor do que o valor atual da função no ponto atual, o algoritmo atualiza o ponto atual para o vizinho selecionado. Se o valor da função no vizinho selecionado for maior ou igual ao valor atual da função no ponto atual, o algoritmo retorna o ponto atual como o mínimo local encontrado. O algoritmo repete
 
-$ pip install -r requirements.txt
+    $ pip install -r requirements.txt
+
+## ils 
+
+O código acima define uma classe ILS que implementa o algoritmo Iterated Local Search. 
+
+O construtor `__init__` recebe os parâmetros step_size, max_iterations, max_restarts, x_low, x_high, y_low, y_high e type. step_size define a distância máxima permitida a ser percorrida em cada iteração, max_iterations define o número máximo de iterações permitidas em cada busca local, max_restarts define o número máximo de reinícios permitidos do algoritmo, x_low, x_high, y_low e y_high definem o intervalo no qual as soluções são procuradas e type é uma string que define o tipo de função a ser otimizada (pode ser "success", "error" ou "info").
+
+A função heuristic implementa a lógica principal do algoritmo Iterated Local Search. A primeira etapa consiste em gerar um ponto de partida aleatório dentro do intervalo definido. Em seguida, o melhor ponto é definido como o ponto inicial e o valor da função é calculado para esse ponto. O ponto atual é definido como o melhor ponto e o valor da função para esse ponto é calculado. As iterações começam enquanto o número de reinícios do algoritmo for menor que o número máximo de reinícios permitidos. A solução candidata é gerada a partir do ponto atual e o valor da função é calculado para essa solução. A busca local é executada a partir dessa solução candidata e um número máximo de iterações é permitido para cada busca local. Se a solução candidata tiver um valor da função menor do que o melhor valor da função atual, a solução candidata é definida como a nova melhor solução. O ponto atual é definido como a solução candidata e o valor da função para esse ponto é definido como o valor da função para a solução candidata. O número de reinícios do algoritmo é incrementado. O algoritmo retorna a melhor solução e o melhor valor da função.
+
+A função perturb_solution recebe um ponto como entrada e gera uma nova solução perturbando ligeiramente as coordenadas x e y do ponto original. O tamanho da perturbação é definido pelo parâmetro step_size e as novas coordenadas geradas são limitadas ao intervalo definido pelos parâmetros x_low, x_high, y_low e y_high.
+
+A função local_search é executada para cada solução candidata gerada na função heuristic. A busca local consiste em gerar uma nova solução perturbando ligeiramente as coordenadas x e y do ponto atual. O tamanho da perturbação é definido pelo parâmetro step_size. O valor da função é calculado para a solução candidata gerada e se o valor da função for menor do que o valor da função atual, a solução candidata é definida como o novo ponto atual. O algoritmo retorna o ponto atual e o valor da função para esse ponto.
