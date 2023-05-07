@@ -1,7 +1,6 @@
 package packages
 
 import (
-	"math/rand"
 	"meta-heuristic/app/core/math"
 	"meta-heuristic/app/domain/reader"
 	"meta-heuristic/app/utils"
@@ -9,7 +8,7 @@ import (
 
 func IteratedLocalSearch(data *reader.DataCSV) float64 {
 	// Geração da solução inicial
-	initialSolution := generateRandomSolution(data.XLow, data.XHight, data.YLow, data.YHight)
+	initialSolution := utils.GenerateRandomSolution(data.XLow, data.XHight, data.YLow, data.YHight)
 	bestSolution := initialSolution
 
 	// Configuração dos parâmetros do algoritmo
@@ -44,15 +43,6 @@ func IteratedLocalSearch(data *reader.DataCSV) float64 {
 	return bestObjective
 }
 
-func generateRandomSolution(xLow, xHigh, yLow, yHigh float64) []float64 {
-	x := utils.RandomFloat(xLow, xHigh)
-	y := utils.RandomFloat(yLow, yHigh)
-
-	result := []float64{x, y}
-
-	return result
-}
-
 func localSearch(solution []float64, data *reader.DataCSV) []float64 {
 	bestSolution := solution
 
@@ -79,7 +69,7 @@ func perturb(solution []float64, perturbationFactor float64, data *reader.DataCS
 }
 
 func perturbCoordinate(coordinate, perturbationFactor, low, high float64) float64 {
-	perturbation := perturbationFactor * (rand.Float64() - 0.5)
+	perturbation := utils.RandomStep(perturbationFactor)
 	perturbedCoordinate := coordinate + perturbation
 
 	// Verifica se o valor perturbado está dentro dos limites

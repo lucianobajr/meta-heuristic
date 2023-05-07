@@ -35,18 +35,22 @@ func run(path string) {
 
 	rand.Seed(time.Now().UnixNano())
 
-	metricsService := usecases.NewMetricsService()
+	metricsServiceILS := usecases.NewMetricsService()
+	metricsServiceHC := usecases.NewMetricsService()
 
 	iterations := 30
 	for i := 0; i < iterations; i++ {
 		//fmt.Printf("Execução %d:\n", i+1)
 
-		metricsService.AddResult(packages.IteratedLocalSearch(data))
+		metricsServiceILS.AddResult(packages.IteratedLocalSearch(data))
+		metricsServiceHC.AddResult(packages.HillClimbingOptimization(data))
+
 		//fmt.Println("Valor da função objetivo:", objectiveValues[i])
 		//fmt.Println()
 	}
 
-	export.Export(metricsService)
+	export.Export(metricsServiceILS)
+	export.Export(metricsServiceHC)
 }
 
 func Bootstrap() {
