@@ -2,6 +2,7 @@ package packages
 
 import (
 	"meta-heuristic/app/core/math"
+	"meta-heuristic/app/domain/model"
 	"meta-heuristic/app/domain/reader"
 	"meta-heuristic/app/utils"
 )
@@ -18,7 +19,7 @@ func IteratedLocalSearch(data *reader.DataCSV) float64 {
 	evaluateService := &math.EvaluateService{}
 
 	// Cálculo do objetivo da melhor solução inicial
-	bestObjective := evaluateService.CalculateObjective(data.Evaluate, bestSolution[0], bestSolution[1])
+	bestObjective := evaluateService.CalculateObjective(data.Evaluate, bestSolution.X, bestSolution.Y)
 
 	for i := 0; i < maxIterations; i++ {
 		// Busca local
@@ -31,7 +32,7 @@ func IteratedLocalSearch(data *reader.DataCSV) float64 {
 		localSolutionPerturbed := localSearch(perturbedSolution, data)
 
 		// Cálculo do objetivo da solução perturbada
-		perturbedObjective := evaluateService.CalculateObjective(data.Evaluate, localSolutionPerturbed[0], localSolutionPerturbed[1])
+		perturbedObjective := evaluateService.CalculateObjective(data.Evaluate, localSolutionPerturbed.X, localSolutionPerturbed.Y)
 
 		// Atualização da melhor solução
 		if perturbedObjective < bestObjective {
@@ -43,7 +44,7 @@ func IteratedLocalSearch(data *reader.DataCSV) float64 {
 	return bestObjective
 }
 
-func localSearch(solution []float64, data *reader.DataCSV) []float64 {
+func localSearch(solution model.SolutionState, data *reader.DataCSV) model.SolutionState {
 	bestSolution := solution
 
 	maxIterations := 10
@@ -54,7 +55,7 @@ func localSearch(solution []float64, data *reader.DataCSV) []float64 {
 		perturbedSolution := perturb(bestSolution, 0.1, data)
 
 		// Verifica se a solução perturbada é melhor do que a atual
-		if evaluateService.CalculateObjective(data.Evaluate, perturbedSolution[0], perturbedSolution[1]) < evaluateService.CalculateObjective(data.Evaluate, bestSolution[0], bestSolution[1]) {
+		if evaluateService.CalculateObjective(data.Evaluate, perturbedSolution.X, perturbedSolution.Y) < evaluateService.CalculateObjective(data.Evaluate, bestSolution.X, bestSolution.Y) {
 			bestSolution = perturbedSolution
 		}
 	}
@@ -62,10 +63,14 @@ func localSearch(solution []float64, data *reader.DataCSV) []float64 {
 	return bestSolution
 }
 
-func perturb(solution []float64, perturbationFactor float64, data *reader.DataCSV) []float64 {
-	perturbedX := perturbCoordinate(solution[0], perturbationFactor, data.XLow, data.XHight)
-	perturbedY := perturbCoordinate(solution[1], perturbationFactor, data.YLow, data.YHight)
-	return []float64{perturbedX, perturbedY}
+func perturb(solution model.SolutionState, perturbationFactor float64, data *reader.DataCSV) model.SolutionState {
+	perturbedX := perturbCoordinate(solution.X, perturbationFactor, data.XLow, data.XHight)
+	perturbedY := perturbCoordinate(solution.Y, perturbationFactor, data.YLow, data.YHight)
+	return model.SolutionState{
+		X: perturbedX,
+		Y: perturbedY,
+	}
+
 }
 
 func perturbCoordinate(coordinate, perturbationFactor, low, high float64) float64 {

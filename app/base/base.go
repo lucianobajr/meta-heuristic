@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 
+	"meta-heuristic/app/constants"
 	"meta-heuristic/app/core/packages"
 	csv_domain "meta-heuristic/app/domain/csv"
 	"meta-heuristic/app/domain/reader"
@@ -49,8 +50,8 @@ func run(path string) {
 		//fmt.Println()
 	}
 
-	export.Export(metricsServiceILS)
-	export.Export(metricsServiceHC)
+	export.Export(metricsServiceILS, constants.Algorithms[0], string(path[len(path)-5]))
+	export.Export(metricsServiceHC, constants.Algorithms[1], string(path[len(path)-5]))
 }
 
 func Bootstrap() {

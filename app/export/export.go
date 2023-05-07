@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"image/color"
 	"log"
+	"meta-heuristic/app/constants"
 	usecases "meta-heuristic/app/use-cases"
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	"github.com/olekukonko/tablewriter"
 	"gonum.org/v1/plot"
@@ -15,13 +17,14 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-func table(results []float64) {
+func table(results []float64, algorithm string) {
 	// Criar uma nova tabela
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Média", "Mínimo", "Máximo", "Desvio Padrão"})
+	table.SetHeader(constants.TableFields[:])
 
 	// Adicionar uma linha com as métricas
 	table.Append([]string{
+		algorithm,
 		formatFloat(usecases.Mean(results)),
 		formatFloat(usecases.Min(results)),
 		formatFloat(usecases.Max(results)),
@@ -36,7 +39,7 @@ func formatFloat(value float64) string {
 	return strconv.FormatFloat(value, 'f', 2, 64)
 }
 
-func generateBoxPlot(results []float64) error {
+func generateBoxPlot(results []float64, evaluate, option string) error {
 	// Criar o plot
 	p := plot.New()
 
@@ -73,7 +76,26 @@ func generateBoxPlot(results []float64) error {
 		return fmt.Errorf("erro ao criar a pasta de saída: %v", err)
 	}
 
-	outFile := filepath.Join(outDir, "boxplot.png")
+	outFile := ""
+
+	if option == "a" || option == "b" {
+		outFile = filepath.Join(outDir, "1")
+		err = os.MkdirAll(outFile, os.ModePerm)
+		if err != nil {
+			return fmt.Errorf("erro ao criar a pasta de saída: %v", err)
+		}
+
+	} else if option == "c" || option == "d" {
+		outFile = filepath.Join(outDir, "2")
+		err = os.MkdirAll(outFile, os.ModePerm)
+		if err != nil {
+			return fmt.Errorf("erro ao criar a pasta de saída: %v", err)
+		}
+	}
+
+	// out/1/B-ILS.png
+	outFile = outFile + "/" + strings.ToUpper(option) + "-" + evaluate + ".png"
+
 	err = p.Save(10*vg.Inch, 6*vg.Inch, outFile)
 	if err != nil {
 		return fmt.Errorf("erro ao exportar a imagem: %v", err)
@@ -83,9 +105,10 @@ func generateBoxPlot(results []float64) error {
 	return nil
 }
 
-func Export(metrics *usecases.MetricsService) {
+func Export(metrics *usecases.MetricsService, evaluate, option string) {
 	result := metrics.GetMetrics()
 
-	table(result.Results)
-	generateBoxPlot(result.Results)
+	table(result.Results, evaluate)
+	generateBoxPlot(result.Results, evaluate, option)
+	fmt.Println()
 }

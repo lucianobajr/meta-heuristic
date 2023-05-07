@@ -1,18 +1,22 @@
 package utils
 
-import "math/rand"
+import (
+	"math/rand"
+	"meta-heuristic/app/domain/model"
+)
 
 func RandomFloat(min, max float64) float64 {
 	return min + rand.Float64()*(max-min)
 }
 
-func GenerateRandomSolution(xLow, xHigh, yLow, yHigh float64) []float64 {
+func GenerateRandomSolution(xLow, xHigh, yLow, yHigh float64) model.SolutionState {
 	x := RandomFloat(xLow, xHigh)
 	y := RandomFloat(yLow, yHigh)
 
-	result := []float64{x, y}
-
-	return result
+	return model.SolutionState{
+		X: x,
+		Y: y,
+	}
 }
 
 // Função auxiliar para gerar um passo aleatório baseado no tamanho do passo
