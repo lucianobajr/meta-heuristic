@@ -31,23 +31,16 @@ func run(path string) {
 		log.Fatal(err)
 	}
 
-	//evaluateService := &math.EvaluateService{}
-	//fmt.Println(evaluateService.CalculateObjective(data.Evaluate, 2.0, 3.0))
-
 	rand.Seed(time.Now().UnixNano())
 
 	metricsServiceILS := usecases.NewMetricsService()
 	metricsServiceHC := usecases.NewMetricsService()
 
 	iterations := 30
-	for i := 0; i < iterations; i++ {
-		//fmt.Printf("Execução %d:\n", i+1)
 
+	for i := 0; i < iterations; i++ {
 		metricsServiceILS.AddResult(packages.IteratedLocalSearch(data))
 		metricsServiceHC.AddResult(packages.HillClimbingOptimization(data))
-
-		//fmt.Println("Valor da função objetivo:", objectiveValues[i])
-		//fmt.Println()
 	}
 
 	export.Export(metricsServiceILS, constants.Algorithms[0], string(path[len(path)-5]))
