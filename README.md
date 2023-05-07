@@ -24,16 +24,16 @@
 
 ## Structure Folder
 
-├── base/            (Arquivos e configurações básicas do projeto)
-├── constants/       (Constantes do projeto)
-├── core/            (Lógica principal do projeto)
-│  ├── math/          (Pacote contendo funcionalidades matemáticas)
-│  ├── packages/      (Pacotes utilitários compartilhados)
-├── domain/          (Camada de domínio do projeto)
-│  ├── csv/           (Pacote relacionado à manipulação de arquivos CSV)
-│  ├── model/         (Modelos e entidades do domínio)
-│  ├── reader/        (Pacote para leitura de dados)
-├── export/          (Exportação de dados, como geração de relatórios, imagens, etc.)
-├── use-cases/       (Casos de uso ou interações do sistema)
-├── utils/           (Utilitários e funções auxiliares)
-│   
+    ├── base/            (Arquivos e configurações básicas do projeto)
+    ├── constants/       (Constantes do projeto)
+    ├── core/            (Lógica principal do projeto)
+    │  ├── math/          (Pacote contendo funcionalidades matemáticas)
+    │  ├── packages/      (Pacotes utilitários compartilhados)
+    ├── domain/          (Camada de domínio do projeto)
+    │  ├── csv/           (Pacote relacionado à manipulação de arquivos CSV)
+    │  ├── model/         (Modelos e entidades do domínio)
+    │  ├── reader/        (Pacote para leitura de dados)
+    ├── export/          (Exportação de dados, como geração de relatórios, imagens, etc.)
+    ├── use-cases/       (Casos de uso ou interações do sistema)
+    ├── utils/           (Utilitários e funções auxiliares)
+    │   
