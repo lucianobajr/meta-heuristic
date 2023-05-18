@@ -17,9 +17,6 @@
 # Arquivos de backup
 *.bak
 
-# Arquivos de documentação gerados
-/docs/
-
 # Arquivos de cache
 /.cache/
 
