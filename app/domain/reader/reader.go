@@ -13,9 +13,9 @@ type ReaderCSV struct{}
 type DataCSV struct {
 	Evaluate string
 	XLow     float64
-	XHight   float64
+	XHigh    float64
 	YLow     float64
-	YHight   float64
+	YHigh    float64
 }
 
 func (r *ReaderCSV) ReadCSVFile(path string) (*DataCSV, error) {
@@ -51,9 +51,9 @@ func (r *ReaderCSV) ReadCSVFile(path string) (*DataCSV, error) {
 	data := &DataCSV{
 		Evaluate: lines[1][0],
 		XLow:     values[0],
-		XHight:   values[1],
+		XHigh:    values[1],
 		YLow:     values[2],
-		YHight:   values[3],
+		YHigh:    values[3],
 	}
 
 	return data, nil

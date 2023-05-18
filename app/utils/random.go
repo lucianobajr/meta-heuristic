@@ -5,6 +5,7 @@ import (
 	"meta-heuristic/app/domain/model"
 )
 
+// gera um número aleatório do tipo float64 dentro de um intervalo especificado.
 func RandomFloat(min, max float64) float64 {
 	return min + rand.Float64()*(max-min)
 }

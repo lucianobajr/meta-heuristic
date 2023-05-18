@@ -14,8 +14,8 @@ func HillClimbingOptimization(data *reader.DataCSV) float64 {
 
 	// Inicialização do estado da solução
 	initialState := model.SolutionState{
-		X: utils.RandomFloat(data.XLow, data.XHight),
-		Y: utils.RandomFloat(data.YLow, data.YHight),
+		X: utils.RandomFloat(data.XLow, data.XHigh),
+		Y: utils.RandomFloat(data.YLow, data.YHigh),
 	}
 
 	evaluateService := &math.EvaluateService{}

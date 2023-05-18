@@ -9,7 +9,7 @@ import (
 
 func IteratedLocalSearch(data *reader.DataCSV) float64 {
 	// Geração da solução inicial
-	initialSolution := utils.GenerateRandomSolution(data.XLow, data.XHight, data.YLow, data.YHight)
+	initialSolution := utils.GenerateRandomSolution(data.XLow, data.XHigh, data.YLow, data.YHigh)
 	bestSolution := initialSolution
 
 	// Configuração dos parâmetros do algoritmo
@@ -64,8 +64,8 @@ func localSearch(solution model.SolutionState, data *reader.DataCSV) model.Solut
 }
 
 func perturb(solution model.SolutionState, perturbationFactor float64, data *reader.DataCSV) model.SolutionState {
-	perturbedX := perturbCoordinate(solution.X, perturbationFactor, data.XLow, data.XHight)
-	perturbedY := perturbCoordinate(solution.Y, perturbationFactor, data.YLow, data.YHight)
+	perturbedX := perturbCoordinate(solution.X, perturbationFactor, data.XLow, data.XHigh)
+	perturbedY := perturbCoordinate(solution.Y, perturbationFactor, data.YLow, data.YHigh)
 	return model.SolutionState{
 		X: perturbedX,
 		Y: perturbedY,
